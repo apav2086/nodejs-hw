@@ -1,50 +1,31 @@
-const express = require('express');
-const { listContacts, getContactById, addContact, removeContact, updateContact } = require('../../models/contacts');
-const router = express.Router()
+// Import required modules: Express, controller functions from '../controllers', and the middleware 'ctrlWrapper' from '../middlewares'.
+const express = require("express");
+const { contacts: ctrl } = require("../../controllers");
+const { ctrlWrapper } = require("../../middlewares");
 
-router.get('/', async (req, res, next) => {
-  try {
-    const data = await listContacts();
-    res.json(data);
-  } catch (err) {
-    next(err);
-  }
-});
+// Create an instance of the Express Router.
+const router = express.Router();
 
-router.get('/:contactId', async (req, res, next) => {
-  try {
-    const [data, status] = await getContactById(req.params.contactId);
-    res.status(status).json(data);
-  } catch (err) {
-    next(err);
-  }
-});
+// Define routes and link them to corresponding controller functions using 'ctrlWrapper'.
 
-router.post('/', async (req, res, next) => {
-   try {
-  const [data, status] = await addContact(req.body);
-   res.status(status).json(data);
-  } catch (err) {
-    next(err);
-  }
-});
+// Route: GET '/api/contacts/'
+// Description: This route is used to retrieve all contacts.
+// Controller Function: 'getAllContacts' from the 'contacts' controller module.
+// Middleware: 'ctrlWrapper' will handle any errors that may occur during the controller function execution.
+router.get("/", ctrlWrapper(ctrl.getAllContacts));
 
-router.delete('/:contactId', async (req, res, next) => {
-  try {
-    const [data, status] = await removeContact(req.params.contactId, req.body);
-    res.status(status).json(data);
-  } catch (err) {
-    next(err);
-  }
-});
 
-router.put('/:contactId', async (req, res, next) => {
-  try {
-    const [data, status] = await updateContact(req.params.contactId, req.body);
-    res.status(status).json(data);
-  } catch (err) {
-    next(err);
-  }
-})
+router.get("/:contactId", ctrlWrapper(ctrl.getContactById));
 
+// Route: POST '/api/contacts/'
+// Description: This route is used to add a new contact.
+// Controller Function: 'addContact' from the 'contacts' controller module.
+// Middleware: 'ctrlWrapper' will handle any errors that may occur during the controller function execution.
+router.post("/", ctrlWrapper(ctrl.addContact));
+
+router.delete("/:contactId", ctrlWrapper(ctrl.removeContact));
+
+router.put("/:contactId", ctrlWrapper(ctrl.updateContact));
+
+// Export the router to be used in 'app.js'.
 module.exports = router;
