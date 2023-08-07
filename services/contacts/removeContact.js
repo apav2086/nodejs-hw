@@ -1,10 +1,10 @@
-const contactsOperations = require("../../models/contacts");
+const { Contact } = require("../../models");
 
 
 const removeContact = async (contactId) => {
   try {
     
-    const data = await contactsOperations.removeContact(contactId);
+    const data = await Contact.findOneAndDelete(contactId);
    
     return data;
   } catch (error) {

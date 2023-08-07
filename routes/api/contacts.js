@@ -1,7 +1,8 @@
 // Import required modules: Express, controller functions from '../controllers', and the middleware 'ctrlWrapper' from '../middlewares'.
 const express = require("express");
 const { contacts: ctrl } = require("../../controllers");
-const { ctrlWrapper } = require("../../middlewares");
+const { validation, ctrlWrapper } = require("../../middlewares");
+const { joiSchema } = require("../../models/contact");
 
 // Create an instance of the Express Router.
 const router = express.Router();
@@ -21,11 +22,13 @@ router.get("/:contactId", ctrlWrapper(ctrl.getContactById));
 // Description: This route is used to add a new contact.
 // Controller Function: 'addContact' from the 'contacts' controller module.
 // Middleware: 'ctrlWrapper' will handle any errors that may occur during the controller function execution.
-router.post("/", ctrlWrapper(ctrl.addContact));
+router.post("/", validation(joiSchema), ctrlWrapper(ctrl.addContact));
 
 router.delete("/:contactId", ctrlWrapper(ctrl.removeContact));
 
 router.put("/:contactId", ctrlWrapper(ctrl.updateContact));
+
+router.patch("/:contactId", ctrlWrapper(ctrl.updateContact));
 
 // Export the router to be used in 'app.js'.
 module.exports = router;

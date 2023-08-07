@@ -1,11 +1,11 @@
 // Import the 'contactsOperations' module from '../../models/contacts'.
-const contactsOperations = require("../../models/contacts");
+const { Contact } = require("../../models");
 
 // Service function for retrieving all contacts.
 const getAllContacts = async () => {
   try {
     // Call the 'getAllContacts' function from 'contactsOperations' to fetch all contacts.
-    const data = await contactsOperations.getAllContacts();
+    const data = await Contact.find({});
     // Return the data (an array of contacts) to the caller.
     return data;
   } catch (error) {

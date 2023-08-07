@@ -1,11 +1,10 @@
-// Import the 'contactsOperations' from '../../models/contacts'.
-const contactsOperations = require("../../models/contacts");
+const { Contact } = require("../../models");
 
 // Service function for adding a new contact.
 const addContact = async (body) => {
   try {
     // Call the 'addContact' function from 'contactsOperations' to add the new contact.
-    const data = await contactsOperations.addContact(body);
+    const data = await Contact.create(body);
     // Return the data (the newly added contact) to the caller.
     return data;
   } catch (err) {

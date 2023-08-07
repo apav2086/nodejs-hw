@@ -1,20 +1,20 @@
-// Import the 'service' module from '../services' to interact with the data model.
-const { contacts: service } = require("../../services");
+// Import the 'contact' service module from the '../../service' directory
+const { contact: service } = require("../../service");
 
-// Controller function for retrieving all contacts.
-const getAllContacts = async (req, res, next) => {
-  // Call the 'getAllContacts' function from the 'service' module to fetch all contacts.
-  const contacts = await service.getAllContacts();
+// Controller function to handle retrieving all contacts
+const getAllContacts = async (req, res) => {
+  // Call the 'getAllContacts' function from the 'contact' service module
+  const result = await service.getAllContacts();
 
-  // Respond with a JSON object containing the fetched contacts.
+  // Respond to the client with a successful response, including the retrieved contacts data
   res.json({
     status: "success",
     code: 200,
     data: {
-      result: contacts,
+      result,
     },
   });
 };
 
-// Export the 'getAllContacts' function to be used in 'routes/api/contacts.js'.
+// Export the 'getAllContacts' controller function to be used in other parts of the application
 module.exports = getAllContacts;

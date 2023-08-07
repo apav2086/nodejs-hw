@@ -1,10 +1,10 @@
-const contactsOperations = require("../../models/contacts");
+const { Contact } = require("../../models");
 
 
 const getContactById = async (contactId) => {
   try {
     
-    const data = await contactsOperations.getContactById(contactId);
+    const data = await Contact.findOne(contactId);
    
     return data;
   } catch (error) {

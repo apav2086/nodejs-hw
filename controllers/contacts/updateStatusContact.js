@@ -3,16 +3,16 @@ const { contactSchema } = require("../../models");
 const { contacts: service } = require("../../services");
 
 
-const updateContact = async (req, res) => {
+const updateStatusContact = async (req, res) => {
  
   const { error } = contactSchema.validate(req.body);
 
  
   if (error) {
-    throw createError(404, "missing fields");
+    throw createError(400, "missing field favorite");
   }
   const { contactId } = req.params;
-  const result = await service.updateContact(contactId, req.body);
+  const result = await service.updataStatusContact(contactId, req.body);
     if (!result) {
     throw createError(404, "not found");
   }
@@ -26,6 +26,4 @@ const updateContact = async (req, res) => {
   });
 };
 
-module.exports = updateContact;
-
-
+module.exports = updateStatusContact;
