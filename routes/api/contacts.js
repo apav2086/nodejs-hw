@@ -2,7 +2,7 @@
 const express = require("express");
 const { contacts: ctrl } = require("../../controllers");
 const { validation, ctrlWrapper } = require("../../middlewares");
-const { joiSchema } = require("../../models/contact");
+const { joiSchema } = require("../../models/contacts");
 
 // Create an instance of the Express Router.
 const router = express.Router();

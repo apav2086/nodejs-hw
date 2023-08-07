@@ -30,7 +30,7 @@ const joiSchema = Joi.object({
 });
 
 // Create the Mongoose Contact model from the contactSchema
-const Contact = model("contact", contactSchema);
+const Contact = model("contacts", contactSchema);
 
 // Export the Contact model and the Joi schemas to be used in other parts of the application
 module.exports = {

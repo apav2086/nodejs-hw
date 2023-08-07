@@ -1,5 +1,5 @@
 // Import the 'contact' service module from the '../../service' directory
-const { contact: service } = require("../../service");
+const { contact: service } = require("../../services");
 
 // Controller function to handle retrieving all contacts
 const getAllContacts = async (req, res) => {
